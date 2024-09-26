@@ -33,9 +33,11 @@ st.title("Landmark Detection Web App")
 uploaded_file = st.file_uploader("Choose an image...", type="jpeg")
 
 if uploaded_file is not None:
+    st.success("Image uploaded successfully!")
     image = Image.open(uploaded_file).resize(IMAGE_SHAPE)
     st.image(image, caption='Uploaded Image.', use_column_width=True)
-    st.write("")
-    st.write("Classifying...")
-    label = classify_image(image)
-    st.write(f"Prediction: {label}")
+    
+    if st.button("Classify Image"):
+        with st.spinner('Classifying...'):
+            label = classify_image(image)
+        st.success(f"Prediction: {label}")
